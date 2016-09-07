@@ -27,12 +27,12 @@ function calculateSalesTax(sales, taxRates) {
 
   for (var i = 0; i < sales.length; i++) {
     if (!companyData.hasOwnProperty(sales[i]['name'])) {
-      companyData[sales[i]['name']] = new Object;
-
-      companyData[sales[i]['name']]['totalSales'] = arraySum(sales[i]['sales']);
-      companyData[sales[i]['name']]['totalTaxes'] = companyData[sales[i]['name']]['totalSales']*taxRates[sales[i]['province']];
+      companyData[sales[i]['name']] = {
+        totalSales: arraySum(sales[i]['sales']),
+        totalTaxes: arraySum(sales[i]['sales'])*taxRates[sales[i]['province']]
+      };
     } else {
-      companyData[sales[i]['name']]['totalSales'] += arraySum(sales[i]['sales']);
+      companyData[sales[i]['name']].totalSales += arraySum(sales[i]['sales']);
       companyData[sales[i]['name']]['totalTaxes'] += arraySum(sales[i]['sales'])*taxRates[sales[i]['province']];
     }
   }
